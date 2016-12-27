@@ -1,2 +1,9 @@
+html5lib==0.999999999
+isodate==0.5.4
 pyley==0.1.2
+pyparsing==2.1.10
+rdflib==4.2.1
 requests==2.12.4
+six==1.10.0
+SPARQLWrapper==1.8.0
+webencodings==0.5
