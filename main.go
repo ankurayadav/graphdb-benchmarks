@@ -17,9 +17,30 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
+)
+
+var (
+	db = flag.String("db", "", "Database on which to run benchmark tests.")
 )
 
 func main() {
+
+	flag.Parse()
+
+	if *db != "" {
+		if *db == "dgraph" {
+			fmt.Println("Starting benchmark tests for dgraph.")
+		} else if *db == "cayley" {
+			fmt.Println("Starting benchmark tests for cayley.")
+		} else {
+			log.Fatal("Given Database name not supported for benchmarking!")
+		}
+	} else {
+		log.Fatal("No Database name selected for benchmarking!")
+	}
+
 	fmt.Println("Graph benchmark code!!")
 }
