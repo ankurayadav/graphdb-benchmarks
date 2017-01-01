@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package dgraph
+package cayley
 
-import (
-	"fmt"
-)
+import "testing"
 
-func main() {
-	fmt.Println("Benchmark code for dgraph!!")
+// BenchmarkDataLoad loads data to cayley db.
+func BenchmarkImportDataToDB(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ImportDataToDB()
+	}
 }
