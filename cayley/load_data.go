@@ -17,10 +17,34 @@
 package cayley
 
 import (
-	"log"
+	"fmt"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 //ImportDataToDB imports given data to db for benchmarking purpose.
 func ImportDataToDB() {
-	log.Println("Started importing data to DB.")
+	cmd := exec.Command("cayley", "init", "-db=bolt", "-dbpath=cayleydb", "-quads=../data/30kmoviedata.nq.gz")
+
+	printCommand(cmd)
+	output, err := cmd.CombinedOutput()
+	printError(err)
+	printOutput(output)
+}
+
+func printCommand(cmd *exec.Cmd) {
+	fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
+}
+
+func printError(err error) {
+	if err != nil {
+		os.Stderr.WriteString(fmt.Sprintf("==> Error: %s\n", err.Error()))
+	}
+}
+
+func printOutput(outs []byte) {
+	if len(outs) > 0 {
+		fmt.Printf("==> Output: %s\n", string(outs))
+	}
 }

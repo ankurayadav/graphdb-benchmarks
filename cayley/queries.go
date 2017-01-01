@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package dgraph
+package cayley
 
-import (
-	"log"
-)
+import "log"
 
-//ImportDataToDB imports given data to db for benchmarking purpose.
-func ImportDataToDB() {
-	log.Println("Started importing data to DB.")
+//dbquery placebo.
+func dbquery() {
+	log.Println("Doing some dbquery.")
 }
