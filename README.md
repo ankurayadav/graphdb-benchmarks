@@ -1,7 +1,7 @@
 # graphdb-benchmark
 Benchmark tests for various graph databases.
 
-### Results of first LoadData tests (30kmoviedata provided in cayley examples folder) on cayleydb and dgraphdb
+### Results of first LoadData benchmark tests (30kmoviedata provided in cayley examples folder) on cayleydb and dgraphdb
 1. **Loading data in cayley graph with bolt backend.**
 <pre>
 Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley
@@ -26,7 +26,6 @@ Number of mutations run   : 472ne:   471705 RDFs per second:  124927
 Number of RDFs processed  : 471705
 Time spent                : 4.715085371s
 RDFs processed per second : 117926
-
 BenchmarkImportDataToDB-4   	       1	4738905881 ns/op
 PASS
 ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	4.745s
