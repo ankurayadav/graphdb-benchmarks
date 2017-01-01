@@ -20,6 +20,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 var (
@@ -30,11 +33,17 @@ func main() {
 
 	flag.Parse()
 
+	var pckgDir string
+
 	if *db != "" {
 		if *db == "dgraph" {
 			fmt.Println("Starting benchmark tests for dgraph.")
+			pckgDir = "./dgraph/"
+
 		} else if *db == "cayley" {
 			fmt.Println("Starting benchmark tests for cayley.")
+			pckgDir = "./cayley/"
+
 		} else {
 			log.Fatal("Given Database name not supported for benchmarking!")
 		}
@@ -42,4 +51,27 @@ func main() {
 		log.Fatal("No Database name selected for benchmarking!")
 	}
 
+	cmd := exec.Command("go", "test", pckgDir, "-bench=.")
+
+	printCommand(cmd)
+	output, err := cmd.CombinedOutput()
+	printError(err)
+	printOutput(output)
+
+}
+
+func printCommand(cmd *exec.Cmd) {
+	fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
+}
+
+func printError(err error) {
+	if err != nil {
+		os.Stderr.WriteString(fmt.Sprintf("==> Error: %s\n", err.Error()))
+	}
+}
+
+func printOutput(outs []byte) {
+	if len(outs) > 0 {
+		fmt.Printf("==> Output: %s\n", string(outs))
+	}
 }
