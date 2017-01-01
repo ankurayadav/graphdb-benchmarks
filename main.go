@@ -42,5 +42,4 @@ func main() {
 		log.Fatal("No Database name selected for benchmarking!")
 	}
 
-	fmt.Println("Graph benchmark code!!")
 }
