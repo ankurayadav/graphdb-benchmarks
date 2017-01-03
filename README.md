@@ -57,7 +57,6 @@ Number of mutations run   : 21240: 21239872 RDFs per second:   24229
 Number of RDFs processed  : 21239872
 Time spent                : 14m39.848819629s
 RDFs processed per second : 24163
-
 BenchmarkImportDataToDB-4   	       1	879903054838 ns/op
 PASS
 ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	879.913s
