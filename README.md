@@ -2,7 +2,7 @@
 Benchmark tests for various graph databases.
 
 ### Results of first LoadData benchmark tests.
-**Loading 30kmoviedata provided in cayley examples folder**
+#### Loading 30kmoviedata provided in cayley examples folder
     1. **Loading data in cayley graph with bolt backend.**
     <pre>
     Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley
@@ -32,7 +32,7 @@ Benchmark tests for various graph databases.
     ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	4.745s
     </pre>
 
-***Loading 21million.rdf.gz data*
+#### Loading 21million.rdf.gz data
     1. **Loading data in cayley graph with bolt backend.**
     <pre>
     Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley
