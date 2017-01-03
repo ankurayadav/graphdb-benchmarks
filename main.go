@@ -51,7 +51,7 @@ func main() {
 		log.Fatal("No Database name selected for benchmarking!")
 	}
 
-	cmd := exec.Command("go", "test", pckgDir, "-bench=.")
+	cmd := exec.Command("go", "test", "-timeout=4h", pckgDir, "-bench=.")
 
 	printCommand(cmd)
 	output, err := cmd.CombinedOutput()
