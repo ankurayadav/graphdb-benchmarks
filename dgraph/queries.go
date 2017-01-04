@@ -16,9 +16,63 @@
 
 package dgraph
 
-import "log"
+import (
+	"bytes"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"testing"
+)
 
-//dbquery placebo.
-func dbquery() {
-	log.Println("Doing some dbquery.")
+var benchmarkQueries = []struct {
+	query string
+}{
+	// Finding movies and genre of movies directed by "Steven Spielberg"?
+	{
+		query: `
+				{
+					me(_xid_: m.06pj8) {
+						type.object.name.en
+						film.director.film  {
+						film.film.genre {
+							type.object.name.en
+						}
+						type.object.name.en
+						film.film.initial_release_date
+						}
+					}
+				}
+		`,
+	},
+}
+
+func runBench(n int, b *testing.B) {
+
+	// Http client for getting JSON response.
+	hc := &http.Client{Transport: &http.Transport{
+		MaxIdleConnsPerHost: 100,
+	}}
+
+	b.StopTimer()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		r, err := http.NewRequest("POST", "http://127.0.0.1:8080/query", bytes.NewBufferString(benchmarkQueries[n].query))
+
+		b.StartTimer()
+		resp, err := hc.Do(r)
+		b.StopTimer()
+
+		if err != nil {
+			log.Fatal("Error in query")
+		} else {
+
+			body, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				log.Fatalf("Couldn't parse response body. %+v", err)
+			}
+
+			log.Printf("Response body: %s", body)
+
+		}
+	}
 }
