@@ -66,12 +66,12 @@ func runBench(n int, b *testing.B) {
 			log.Fatal("Error in query")
 		} else {
 
-			body, err := ioutil.ReadAll(resp.Body)
+			_, err := ioutil.ReadAll(resp.Body)
 			if err != nil {
 				log.Fatalf("Couldn't parse response body. %+v", err)
 			}
 
-			log.Printf("Response body: %s", body)
+			// log.Printf("Response body: %s", body)
 
 		}
 	}

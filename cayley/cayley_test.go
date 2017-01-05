@@ -24,3 +24,8 @@ func BenchmarkImportDataToDB(b *testing.B) {
 		ImportDataToDB()
 	}
 }
+
+// BenchmarkFilmByDirector finding movies and genre of movies directed by "Steven Spielberg"?
+func BenchmarkFilmByDirector(b *testing.B) {
+	runBench(0, b)
+}
