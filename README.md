@@ -63,7 +63,7 @@ ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	879.913s
 </pre>
 
 ### Results of Queries benchmark.
-#### Query to find all movies and the genre of director "Steven Spielberg".
+#### Query to find all movies and their genre which are directed by director "Steven Spielberg".
 1. **Querying in cayley graph with bolt backend.**
 <pre>
 Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley -bench=queries
