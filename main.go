@@ -26,7 +26,8 @@ import (
 )
 
 var (
-	db = flag.String("db", "", "Database on which to run benchmark tests.")
+	db    = flag.String("db", "", "Database on which to run benchmark tests. (dgraph or cayley)")
+	bench = flag.String("bench", "", "Which type of functions to benchmark. (dataimport or queries)")
 )
 
 func main() {
@@ -34,6 +35,7 @@ func main() {
 	flag.Parse()
 
 	var pckgDir string
+	var benchregex string
 
 	if *db != "" {
 		if *db == "dgraph" {
@@ -51,7 +53,23 @@ func main() {
 		log.Fatal("No Database name selected for benchmarking!")
 	}
 
-	cmd := exec.Command("go", "test", "-timeout=4h", pckgDir, "-bench=.")
+	if *bench != "" {
+		if *bench == "dataimport" {
+			fmt.Println("Starting dataimport benchmarking tests.")
+			benchregex = "BenchmarkImportDataToDB"
+
+		} else if *bench == "queries" {
+			fmt.Println("Starting queries benchmarking tests.")
+			benchregex = "BenchmarkQuery*"
+
+		} else {
+			log.Fatal("Given type of benchmarking tests not supported.")
+		}
+	} else {
+		log.Fatal("No benchmarking tests selected!")
+	}
+
+	cmd := exec.Command("go", "test", "-timeout", "4h", pckgDir, "-bench", benchregex)
 
 	printCommand(cmd)
 	output, err := cmd.CombinedOutput()
