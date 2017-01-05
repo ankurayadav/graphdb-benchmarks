@@ -1,4 +1,4 @@
-# graphdb-benchmark
+# graphdb-benchmarks
 Benchmark tests for various graph databases.
 
 ### Results of first LoadData benchmark tests.
