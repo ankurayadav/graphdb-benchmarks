@@ -62,4 +62,29 @@ PASS
 ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	879.913s
 </pre>
 
+### Results of Queries benchmark.
+#### Query to find all movies and the genre of director "Steven Spielberg".
+1. **Querying in cayley graph with bolt backend.**
+<pre>
+Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley -bench=queries
+Starting benchmark tests for cayley.
+Starting queries benchmarking tests.
+==> Executing: go test -timeout 4h ./cayley/ -bench BenchmarkQuery*
+==> Output: testing: warning: no tests to run
+BenchmarkQueryFilmByDirector-4   	      20	  64747834 ns/op
+PASS
+ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/cayley	1.376s
+</pre>
+2. **Querying in dgraph.**
+<pre>
+Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=dgraph -bench=queries
+Starting benchmark tests for dgraph.
+Starting queries benchmarking tests.
+==> Executing: go test -timeout 4h ./dgraph/ -bench BenchmarkQuery*
+==> Output: testing: warning: no tests to run
+BenchmarkQueryFilmByDirector-4   	    1000	   1764900 ns/op
+PASS
+ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	2.067s
+</pre>
+
 **Note :** Please ensure you have [Git LFS](https://git-lfs.github.com/) installed, before you clone this repository.
