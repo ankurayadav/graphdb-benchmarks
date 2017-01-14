@@ -34,9 +34,20 @@ var benchmarkQueries = []struct {
 					me(_xid_: m.06pj8) {
 						type.object.name.en
 						film.director.film  {
-						film.film.genre {
-							type.object.name.en
+						type.object.name.en
+						film.film.initial_release_date
 						}
+					}
+				}
+		`,
+	},
+
+	{
+		query: `
+				{
+					director(allof("type.object.name.en", "steven spielberg")) {
+						type.object.name.en
+						film.director.film {
 						type.object.name.en
 						film.film.initial_release_date
 						}
