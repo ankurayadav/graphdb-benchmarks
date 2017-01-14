@@ -35,29 +35,22 @@ var benchmarkQueries = []struct {
 }{
 	// Finding movies and genre of movies directed by "Steven Spielberg"?
 	{
-		query: `
-				var director = g.V("<m.06pj8>").Out("<type.object.name>").ToArray()[0]
-				var b = g.V("<m.06pj8>").Out("<film.director.film>").ToArray()
-
-				_.each(b, function(s){
-				var film_name = g.V(s).Out("<type.object.name>").ToArray()[0]
-				var file_release = g.V(s).Out("<film.film.initial_release_date>").ToArray()[0]
-				var movie = {}
-				movie["director"] = director
-				movie["film_name"] = film_name
-				movie["file_release"] = file_release
-				
-				var genre = g.V(s).Out("<film.film.genre>").ToArray()
-				var genre_list = ""
-				_.each(genre, function(gen){
-						var genre_name =  g.V(gen).Out("<type.object.name>").ToArray()[0]
-						genre_list += genre_name + ", "
-				})
-				
-				movie["genre_list"] = genre_list
-				
-				g.Emit(movie)
-				})
+		query: ` [{"id" : "<m.06pj8>", 
+				"<type.object.name>" : null,
+				"<film.director.film>" : {
+					"<type.object.name>" : null,
+					"<film.film.initial_release_date>" : null
+				}
+			}]
+		`,
+	},
+	{
+		query: ` [{"<type.object.name>" : "\"Steven Spielberg\"@en",
+				"<film.director.film>" : {
+					"<type.object.name>" : null,
+					"<film.film.initial_release_date>" : null
+				}
+			}]
 		`,
 	},
 }
@@ -72,7 +65,7 @@ func runBench(n int, b *testing.B) {
 	b.StopTimer()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		r, err := http.NewRequest("POST", "http://127.0.0.1:64210/api/v1/query/gremlin", bytes.NewBufferString(benchmarkQueries[n].query))
+		r, err := http.NewRequest("POST", "http://127.0.0.1:64210/api/v1/query/mql", bytes.NewBufferString(benchmarkQueries[n].query))
 
 		b.StartTimer()
 		resp, err := hc.Do(r)
@@ -87,7 +80,7 @@ func runBench(n int, b *testing.B) {
 				log.Fatalf("Couldn't parse response body. %+v", err)
 			}
 
-			//log.Printf("Response body: %s", body)
+			// log.Printf("Response body: %s", body)
 
 		}
 	}
