@@ -63,6 +63,7 @@ ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	879.913s
 </pre>
 
 ### Results of Queries benchmark.
+####(Dgraph queries were performed in GraphQL+- and Cayley were performed in gremlin).
 #### Query to find all movies and their genre which are directed by director "Steven Spielberg".
 1. **Querying in cayley graph with bolt backend.**
 <pre>
@@ -87,4 +88,35 @@ PASS
 ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	2.067s
 </pre>
 
+### Results of Queries benchmark.
+####(Dgraph queries were performed in GraphQL+- and Cayley were performed in MQL).
+#### Query to find all movies and their genre which are directed by director "Steven Spielberg".
+1. **Querying in cayley graph with bolt backend.**
+<pre>
+Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley -bench=queries
+Starting benchmark tests for cayley.
+Starting queries benchmarking tests.
+==> Executing: go test -timeout 4h ./cayley/ -bench BenchmarkQuery*
+==> Output: testing: warning: no tests to run
+BenchmarkQueryFilmByDirector_WithNodeIDGiven-4   	     300	   5266758 ns/op
+BenchmarkQueryFilmByDirector_WithNameGiven-4     	     300	   4612812 ns/op
+PASS
+ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/cayley	4.027s
+</pre>
+2. **Querying in dgraph.**
+<pre>
+Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=dgraph -bench=queries
+Starting benchmark tests for dgraph.
+Starting queries benchmarking tests.
+==> Executing: go test -timeout 4h ./dgraph/ -bench BenchmarkQuery*
+==> Output: testing: warning: no tests to run
+BenchmarkQueryFilmByDirector_WithNodeIDGiven-4   	    2000	    891509 ns/op
+BenchmarkQueryFilmByDirector_WithNameGiven-4     	    2000	   1137399 ns/op
+PASS
+ok  	_/Users/ankuryadav/dev/benchmark/graphdb-benchmark/dgraph	4.639s
+
+Ankurs-MacBook-Pro:graphdb-benchmark ankur$ go run main.go -db=cayley -bench=queries
+</pre>
+
+**Note :** MQL queries for cayley are present in cayleyMQL branch.
 **Note :** Please ensure you have [Git LFS](https://git-lfs.github.com/) installed, before you clone this repository.
